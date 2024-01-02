@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+
+  generate-user-order-management:
+    tty: true
+    env_file:
+      - .env
+    image: ghcr.io/jinyoung/gpt-engineer:v1
+    volumes:
+      - ../user-order-management:/project
+  generate-rider-management:
+    tty: true
+    env_file:
+      - .env
+    image: ghcr.io/jinyoung/gpt-engineer:v1
+    volumes:
+      - ../rider-management:/project
+  generate-store-management:
+    tty: true
+    env_file:
+      - .env
+    image: ghcr.io/jinyoung/gpt-engineer:v1
+    volumes:
+      - ../store-management:/project
