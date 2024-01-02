@@ -1,0 +1,132 @@
+Please implement vuejs frontend for this Event Storming Model:
+{
+  "_type": "BoundedContext",
+  "aggregates": [
+    {
+      "aggregateRoot": {
+        "_type": "AggregateRoot",
+        "fieldDescriptors": [
+          {
+            "className": "String",
+            "name": "riderId",
+            "displayName": "라이더 ID",
+            "_type": "FieldDescriptor"
+          },
+          {
+            "className": "String",
+            "name": "riderName",
+            "displayName": "이름",
+            "_type": "FieldDescriptor"
+          },
+          {
+            "className": "String",
+            "name": "riderStatus",
+            "displayName": "라이더 상태",
+            "_type": "FieldDescriptor"
+          }
+        ]
+      },
+      "commands": [
+        {
+          "_type": "Command",
+          "fieldDescriptors": [
+            {
+              "className": "String",
+              "name": "orderId",
+              "_type": "FieldDescriptor"
+            }
+          ],
+          "name": "AcceptOrder",
+          "displayName": "주문 수락하기",
+          "method": "PUT",
+          "api-uri": ""
+
+        },
+        {
+          "_type": "Command",
+          "fieldDescriptors": [
+            {
+              "className": "String",
+              "name": "orderId",
+              "_type": "FieldDescriptor"
+            }
+          ],
+          "name": "MarkDeliveryCompleted",
+          "displayName": "배달 완료 처리하기",
+          "method": "PUT"
+        }
+      ],
+      "events": [
+        {
+          "fieldDescriptors": [
+            {
+              "className": "String",
+              "name": "orderId",
+              "_type": "FieldDescriptor"
+            },
+            {
+              "className": "String",
+              "name": "riderId",
+              "_type": "FieldDescriptor"
+            }
+          ],
+          "name": "OrderAssigned",
+          "displayName": "주문 할당됨",
+          "_type": "Event"
+        },
+        {
+          "fieldDescriptors": [
+            {
+              "className": "String",
+              "name": "orderId",
+              "_type": "FieldDescriptor"
+            }
+          ],
+          "name": "DeliveryCompleted",
+          "displayName": "배달 완료됨",
+          "_type": "Event"
+        }
+      ],
+      "name": "Rider",
+      "displayName": "라이더",
+      "_type": "Aggregate"
+    }
+  ],
+  "name": "rider-management",
+  "displayName": "라이더 관리",
+  "policies": [
+    {
+      "fieldDescriptors": [],
+      "name": "OrderPlacedPolicy",
+      "displayName": "주문 생성 정책",
+      "_type": "Policy"
+    }
+  ]
+}
+
+
+I want to utilize following techniques:
+
+- vuejs 3
+- vuetify3
+- vite
+- axios for REST API call
+
+화면들을 아래 원칙대로 만들어줘:
+1. 각 Aggregate 별로 기본적인 CRUD 가 가능한 페이지를 생성
+- 해당 Aggregate 의 목록을 GET 해서 테이블에 출력하는 UI
+- 해당 Aggregate 의 field descriptor 들의 값을 입력하는 Form 생성
+- Form 에서 저장 버튼을 누르면 REST 호출로 해당 Aggregate 내용을 Post
+- 목록에서 멀티로 선택한 Aggregate instance 들을 한번에 삭제하는 UI와 삭제 REST DELETE 호출
+- 목록에서 Aggregate 의 상세내역을 Popup 하여 보여주는 보기 모드 Form (입력Form 의 읽기 모드)
+- 보기모드에서 수정 버튼을 클릭하면 최초 입력 Form 과 같은 UI로 수정할 수 있는 Form 그리고 수정 REST API (PATCH)를 호출
+- 보기모드에서 각 Aggregate 에 대한 Command 들을 호출 할 수 있는 Command 버튼 (각 Command 들의 API URL 로 호출)
+2. 왼쪽 네이게이션은 각 Aggregate 들을 방문할 수 있는 버튼들 제공하고 router 로 각 페이지를 방문 할 수 있도록 제공
+
+You can imagine the backend's REST API urls with this rules:
+
+- Resource Name:  plural-lower-case of aggregate name will be the resource name:
+  e.g. /riders
+- Default  API URIs:   default methods (Creat=POST, Update=PATCH, Delete=DELETE) for the resource are conformed with REST API principle.
+- API URIs for each commands:  Resource Name and Command Name with URL convention (hypen-separated)
+  e.g. /riders/accept-orders 

@@ -1,0 +1,7 @@
+```sh
+./mvnw clean install
+```
+
+```sh
+./run.sh run
+```
