@@ -1,0 +1,226 @@
+---
+paths:
+  '/teams/{id}//teams/{teamId}':
+    summary: UpdateTeam operation on teams
+    put:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                teamName:
+                  description: teamName of this UpdateTeam
+                  type: string
+                teamMembers:
+                  description: teamMembers of this UpdateTeam
+                  type: string
+            examples: null
+      parameters:
+        - name: id
+          description: UpdateTeam name
+          schema:
+            type: string
+          in: path
+          required: true
+          examples: null
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              examples:
+                '1':
+                  value:
+                    teamName: A string
+                    teamMembers: value
+          description: UpdateTeam Operation
+      operationId: UpdateTeam
+      summary: UpdateTeam
+      description: UpdateTeam
+  '/teams/{id}//teams':
+    summary: CreateTeam operation on teams
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                teamName:
+                  description: teamName of this CreateTeam
+                  type: string
+                teamMembers:
+                  description: teamMembers of this CreateTeam
+                  type: string
+            examples: null
+      parameters:
+        - name: id
+          description: CreateTeam name
+          schema:
+            type: string
+          in: path
+          required: true
+          examples: null
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              examples:
+                '1':
+                  value:
+                    teamName: A string
+                    teamMembers: value
+          description: CreateTeam Operation
+      operationId: CreateTeam
+      summary: CreateTeam
+      description: CreateTeam
+  /teams:
+    summary: Global operations on teams
+    get:
+      tags:
+        - teams
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+              examples:
+                teams_json:
+                  value:
+                    - teamName: A string
+                      teamMembers: value
+          description: Get list of teams
+      operationId: GetTeam
+      summary: Get list of teams
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+            examples:
+              '1':
+                value:
+                  teamName: A string
+                  teamMembers: value
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              examples:
+                '1':
+                  value:
+                    teamName: A string
+                    teamMembers: value
+          description: Changed Team
+      operationId: Post Team
+      summary: Post Team
+  '/teams/{id}':
+    summary: Specific operation on teams
+    get:
+      parameters:
+        - examples:
+            A string:
+              value: A string
+          name: id
+          description: Team name
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              examples:
+                '1':
+                  value:
+                    teamName: A string
+                    teamMembers: value
+          description: teams with specified id
+      operationId: GetTeamById
+      summary: Get Team by id
+      description: Get Team by id
+    patch:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Team'
+            examples:
+              '1':
+                value:
+                  teamName: A string
+                  teamMembers: value
+        required: true
+      parameters:
+        - examples:
+            '1':
+              value: 1
+          name: teamName
+          description: Team name
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+              examples:
+                '1':
+                  value:
+                    teamName: A string
+                    teamMembers: value
+          description: Changed Team
+      operationId: PatchTeam
+      summary: Patch existing Team
+    parameters:
+      - name: id
+        description: Team id
+        schema:
+          type: string
+        in: path
+        required: true
+openapi: 3.0.2
+info:
+  title: Team
+  version: 0.0.1
+  description: API definition of team
+  contact:
+    name: creator's name
+    url: 'http://creator.homepage.address'
+    email: creator@creator.com
+  license:
+    name: MIT License
+    url: 'https://opensource.org/licenses/MIT'
+components:
+  schemas:
+    Team:
+      title: Root Type for Team
+      description: The root of the Team type's schema.
+      type: object
+      properties:
+        teamName:
+          description: teamName of this Team
+          type: string
+        teamMembers:
+          description: teamMembers of this Team
+          type: string
+tags:
+  - name: Team
+    description: Team resource
